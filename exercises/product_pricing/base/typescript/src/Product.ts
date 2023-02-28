@@ -1,14 +1,19 @@
+import { ProductPrice } from './ProductPrice';
 import { InvalidProductPrice } from './InvalidProductPrice';
 
 export class Product {
-  constructor(private price: number) {
-    if (price < 0) {
+  constructor(private price: ProductPrice) {
+    this.extracted();
+  }
+
+  private extracted() {
+    if (this.price.value < 0) {
       throw new InvalidProductPrice();
     }
   }
 
   total(): number {
     const vat = 0.21;
-    return this.price * (1 + vat);
+    return this.price.value * (1 + vat);
   }
 }
